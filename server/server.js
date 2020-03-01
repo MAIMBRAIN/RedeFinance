@@ -3,7 +3,7 @@ const path = require('path'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    usersRoutes = require('./routes/users.js');
+    userRouter = require('./routes/users.js');
 
 // Use env port or default
 const port = process.env.PORT || 5000;
@@ -23,7 +23,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // add a router
-app.use('/api/users', usersRoutes);
+app.use('/api/users', userRouter);
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files

@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken'),
     jwt_secret = process.env.secret || require('./config/config.js').secret;
 
 // function to create tokens
-const signToken = (user) => {
+function signToken(user) {
     const userData = user.toObject();
     delete userData.password;
     return jwt.sign(userData, jwt_secret)
-};
+}
 
 // function to verify tokens
-const verifyToken = (req, res, next) => {
+function verifyToken(req, res, next) {
     const token = req.get('token') || req.body.token || req.query.token;
 
     // reject user if no token
@@ -30,7 +30,7 @@ const verifyToken = (req, res, next) => {
             next();
         })
     })
-};
+}
 
 module.exports = {
     signToken,

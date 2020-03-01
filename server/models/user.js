@@ -18,7 +18,7 @@ userSchema.methods.validPassword = (password) => {
 };
 
 // had to add this, checks if password was changed before saving
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function(next) {
     if(this.isModified('password')) {
         this.password = this.generateHash(this.password);
     }
