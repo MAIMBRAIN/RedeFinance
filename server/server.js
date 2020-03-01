@@ -3,13 +3,13 @@ const path = require('path'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    usersRoutes = require('../routes/users.js');
+    usersRoutes = require('./routes/users.js');
 
 // Use env port or default
 const port = process.env.PORT || 5000;
 
 // Connect to database
-mongoose.connect(process.env.DB_URI || require('./config').db.uri, {
+mongoose.connect(process.env.DB_URI || require('./config/config.js').db.uri, {
     useNewUrlParser: true
 });
 mongoose.set('useCreateIndex', true);

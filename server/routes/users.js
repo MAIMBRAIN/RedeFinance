@@ -1,7 +1,7 @@
 const express = require('express'),
     userRouter = new express.Router(),
     userController = require('../controllers/users.js'),
-    verifyToken = require('../authHelperFunctions').verifyToken();
+    verifyToken = require('../authHelperFunctions').verifyToken;
 
 userRouter.route('/').get(userController.index).post(userController.create);
 
