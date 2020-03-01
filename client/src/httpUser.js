@@ -18,13 +18,18 @@ httpUser.getCurrentUser = function() {
 };
 
 httpUser.logIn = async function(credentials) {
-    const response = await axios.post( '/api/users/authenticate', credentials );
+    try {
+        const response = await axios.post( '/api/users/authenticate', credentials );
 
-    const token = response.data.token;
-    if(token) {
-        this.defaults.headers.common.token = this.setToken(token);
-        return jwtDecode(token);
-    } else {
+        const token = response.data.token;
+        if(token) {
+            this.defaults.headers.common.token = this.setToken(token);
+            return jwtDecode(token);
+        } else {
+            return false;
+        }
+    } catch(err) {
+        console.log(err);
         return false;
     }
 };

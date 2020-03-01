@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
 });
 
 // adds method to user to create hashed password
-userSchema.methods.generateHash = (password) => {
+userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 // adds method to user to check if password is correct
-userSchema.methods.validPassword = (password) => {
-    return bcrypt.compareSync(password, bcrypt.genSaltSync(8));
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 };
 
 // had to add this, checks if password was changed before saving
