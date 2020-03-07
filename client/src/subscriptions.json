@@ -1,0 +1,38 @@
+[
+    {
+        "name":"Spotify",
+        "category": "Subscription",
+        "cost":10,
+        "date":"3/5/20"
+    },
+    {
+        "name":"Netflix",
+        "category": "Subscription",
+        "cost":8,
+        "date":"3/23/20"
+    },
+    {
+        "name":"HBO",
+        "category": "Subscription",
+        "cost":15,
+        "date":"3/15/20"
+    },
+    {
+        "name":"Amazon Prime",
+        "category": "Subscription",
+        "cost":15,
+        "date":"3/23/20"
+    },
+    {
+        "name":"YouTube Red",
+        "category": "Subscription",
+        "cost":10,
+        "date":"3/5/20"
+    },
+    {
+        "name":"PornHub Premium",
+        "category": "Subscription",
+        "cost":69,
+        "date":"3/23/20"
+    }
+]

@@ -1,9 +1,32 @@
-import React from 'react'
+import React, {useState, setState} from 'react';
+import {Typography } from '@material-ui/core';
+import ExpenseCard from '../components/Expenses/ExpenseCard'
+import Subscriptions from '../subscriptions.json'
 
-const Dashboard = (props) => {
+const month = () =>
+{
+    let thisMonth = new Date().toLocaleDateString('default', {month: 'long'})
+    return thisMonth;
+}
+
+const total = () =>
+{
+    let total = 0;
+    Subscriptions.forEach(item => {
+        return(total = total + item.cost)
+    });
+    return total;
+}
+
+const Dashboard = (props) => 
+{    
     return (
         <div>
-            <h1>Welcome to your dashboard!</h1>
+            <Typography variant={'h3'}>
+                Welcome 'Name goes here', Your expenses for {month()} is ${total()}
+            </Typography>
+
+            <ExpenseCard month={month()} total={total()}/>
         </div>
     )
 };

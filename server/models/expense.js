@@ -20,6 +20,10 @@ const expenseSchema = new mongoose.Schema({
     occurance: {
         type: String,
         required: true
+    },
+    category: {
+        type: String,
+        required: true
     }
 });
 
