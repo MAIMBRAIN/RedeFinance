@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import {Grid, Card, Typography, CardHeader, CardContent, TextField, MenuItem, FormControl} from '@material-ui/core';
+import React from 'react';
+import {Grid, Card, Typography, CardHeader, CardContent, TextField, MenuItem, FormControl, Button} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns'
-import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 const ExpensesForm = (props) =>
 {
     const types = [{value:'Flat-Rate', label: 'Flat-Rate'}, {value:'Variable-Rate', label:'Variable-Rate'}]
-    const [type, setType] = useState();
-    const [name, setName] = useState();
-    const [category, setCategory] = useState();
-    const [selectedDate, handleDateChange] = useState(new Date());
-    const [cost, setCost] = useState();
+    const recurring = [{value:'Monthly', label: 'Monthly'}, {value:'Yearly', label: 'Yearly'}]
 
     return(
         <Grid item xs>
             <Card>
-                <Typography variant={'h6'}>
+                <Typography variant={'h6'} align='center'>
                     <CardHeader title='Add Expense'/>
                 </Typography>
-                <CardContent>
-                    <FormControl margin='dense'>
+                <CardContent align='center'>
+                    <FormControl>
                         <TextField
                             id='rates'
-                            label="Select Rate Type"
-                            value={type}
-                            onChange={e => setType(e.target.value)}
+                            label='Select Rate Type'
+                            value={props.type ? props.type:""}
+                            onChange={e => props.setType(e.target.value)}
+                            margin='normal'
+                            
                             select
                         >
                             {types.map(rate => (
@@ -36,37 +34,53 @@ const ExpensesForm = (props) =>
                         <TextField
                             id='name'
                             label='Name of Expense'
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                            variant={'outlined'}
+                            value={props.name ? props.name:""}
+                            onChange={e => props.setName(e.target.value)}
+                            margin='normal'
+                            
                         >
                         </TextField>
                         <TextField
                             id='category'
                             label='Category of Expense'
-                            value={category}
-                            onChange={e => setCategory(e.target.value)}
-                            variant={'outlined'}
+                            value={props.category ? props.category:""}
+                            onChange={e => props.setCategory(e.target.value)}
+                            margin='normal'
+                            
                         >
                         </TextField>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <DatePicker
+                            <KeyboardDatePicker
                                 variant='inline'
                                 label='Expense Date'
-                                value={selectedDate}
-                                onChange={handleDateChange}
+                                value={props.date ? props.date:""}
+                                onChange={props.setDate}
                             />
                         </MuiPickersUtilsProvider>
                         <TextField
+                            id='occurance'
+                            label='Occurance of Expense'
+                            value={props.occurance ? props.occurance:""}
+                            onChange={e => props.setOccurance(e.target.value)}
+                            margin='normal'
+                            select
+                        >
+                            {recurring.map(occur => (
+                                <MenuItem key={occur.value} value={occur.value}>
+                                    {occur.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                        <TextField
                             id='cost'
                             label='Cost of Expense'
-                            value={cost}
-                            onChange={e => setCost(e.target.value)}
-                            variant={'outlined'}
+                            value={props.cost ? props.cost:""}
+                            onChange={e => props.setCost(e.target.value)}
+                            margin='normal'
                         >
                         </TextField>
-                    </FormControl>
-                        
+                        <Button variant='contained' color='primary' type='submit' onClick={props.handleSubmit}>Add Expense</Button>
+                    </FormControl>  
                 </CardContent>
             </Card>
         </Grid>
