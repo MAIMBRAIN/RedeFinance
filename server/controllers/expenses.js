@@ -20,12 +20,11 @@ module.exports = {
 
     // show all expenses
     index: async (req, res) => {
-        try {
-            const expense = Expense.find({});
-            res.json(expense);
-        } catch (err) {
-            alert(err);
-        }
+        Expense.find({}, (err, expense) =>
+        {
+            if(err){ res.send(err) }
+            res.json(expense)
+        })
     },
 
     // show variable-rate expenses

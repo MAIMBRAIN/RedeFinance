@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Container, Grid, Card, CardContent, CardHeader, Typography, IconButton } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import ExpenseData from './ExpenseData/ExpenseData';
-import Subscriptions from '../../subscriptions.json';
 import ExpensesForm from './ExpensesForm/ExpensesForm';
+import ExpenseHeader from './ExpenseHeader/ExpenseHeader';
 import API from '../../utils/expenses'
 
 const ExpenseCard = (props) =>
@@ -15,7 +15,34 @@ const ExpenseCard = (props) =>
     const [date, setDate] = useState(new Date());
     const [occurance, setOccurance] = useState()
     const [cost, setCost] = useState();
+    const [expenses, setExpenses] = useState([]);
 
+    useEffect(() =>
+    {
+        showExpenses();
+    }, [])
+
+    const showExpenses = () =>
+    {
+        API.getExpenses()
+        .then(res => {
+            console.log('Success', res);
+            setExpenses(res.data);
+        })
+        .catch(err => console.log('Error: ', err))
+    }
+
+    // // Remove current expense
+    // const removeExpense = () =>
+    // {
+    //     API.deleteExpense()
+    //     .then(res => console.log('Expense Deleted', res))
+    //     .catch(err => console.log('Error: ', err))
+    // }
+
+    // Total of expenses
+
+    // Handles expense submit
     const handleSubmit = e => 
     {
         e.preventDefault();
@@ -24,17 +51,24 @@ const ExpenseCard = (props) =>
         API.createExpense(data)
         .then(res => console.log('Success', res))
         .catch(err => console.log('Error: ', err));
-        setShowForm(false);
+        try {
+            setShowForm(false);
+            showExpenses();
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     return(
         <Container>
-                <Grid container spacing={1}>
-                    <Grid item xs={8}>
-                        <Card className='flatRate'>
+                <Grid container spacing={1} wrap={'wrap'}>
+                    <Grid item xs={9}>
+                    <Grid item xs={12}>
+                        <Card className='variableRate'>
                             <Typography variant={'h6'} align={'left'}>
                                 <CardHeader
-                                    title={`Flat-Rate Expenses for ${props.month}: $${props.total}`}
+                                    title={`Variable-Rate Expenses for ${props.month}: $${props.total}`}
                                     action=
                                     {
                                         <IconButton aria-label="settings">
@@ -44,57 +78,62 @@ const ExpenseCard = (props) =>
                                 />
                             </Typography>
                             <CardContent>
-                                <Grid container>
-                                    <Grid item xs={5}>
-                                        Name            
-                                    </Grid>
-                                    <Grid item xs={3}>
-                                        Category
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        Date
-                                    </Grid>
-                                    <Grid item xs={1}>
-                                        Cost
-                                    </Grid>
-                                </Grid>
-                                <hr></hr>
-                                <br></br>
-                                {Subscriptions.map(item =>
-                                {
-                                    return(
-                                        <ExpenseData
-                                            key={item.name}
-                                            name={item.name}
-                                            category={item.category}
-                                            date={item.date}
-                                            cost={item.cost}
-                                        />
-                                    )
-                                })}
+                                <ExpenseHeader />
+                                {expenses.filter(rate => rate.type === 'Variable-Rate').map(expense => (
+                                    <ExpenseData
+                                        key={expense.name}
+                                        name={expense.name}
+                                        category={expense.category}
+                                        date={new Date(expense.date).toDateString()}
+                                        cost={expense.cost}
+                                        // onClick={removeExpense}
+                                    />
+                                ))}
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs>
-                    {showForm && 
-                        <ExpensesForm
-                            type={type}
-                            name={name}
-                            category={category}
-                            date={date}
-                            occurance={occurance}
-                            cost={cost}
-                            setType={setType}
-                            setName={setName}
-                            setCategory={setCategory}
-                            setDate={setDate}
-                            setOccurance={setOccurance}
-                            setCost={setCost} 
-                            handleSubmit={handleSubmit}
-                        />}
+                    <Grid item xs={12}>
+                        <Card className='flatRate'>
+                            <Typography variant={'h6'} align={'left'}>
+                                <CardHeader
+                                    title={`Flat-Rate Expenses for ${props.month}: $${props.total}`}
+                                />
+                            </Typography>
+                            <CardContent>
+                                <ExpenseHeader/>
+                                {expenses.filter(rate => rate.type === 'Flat-Rate').map(expense => (
+                                    <ExpenseData
+                                        key={expense.name}
+                                        name={expense.name}
+                                        category={expense.category}
+                                        date={new Date(expense.date).toDateString()}
+                                        cost={expense.cost}
+                                        // onClick={removeExpense}
+                                    />
+                                ))}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    </Grid>
+                    <Grid item xs={3}>
+                            {showForm && 
+                                <ExpensesForm
+                                    type={type}
+                                    name={name}
+                                    category={category}
+                                    date={date}
+                                    occurance={occurance}
+                                    cost={cost}
+                                    setType={setType}
+                                    setName={setName}
+                                    setCategory={setCategory}
+                                    setDate={setDate}
+                                    setOccurance={setOccurance}
+                                    setCost={setCost} 
+                                    handleSubmit={handleSubmit}
+                                />}
+                        </Grid>
                 </Grid>
-                </Grid>
-                
             </Container>
     )
 }

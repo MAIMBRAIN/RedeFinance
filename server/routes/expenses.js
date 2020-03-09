@@ -1,7 +1,9 @@
 const express = require('express'),
     expenseRouter = new express.Router(),
-    expencesController = require('../controllers/expenses');
+    expensesController = require('../controllers/expenses');
 
-expenseRouter.route('/').post(expencesController.create);
+expenseRouter.route('/expenses').get(expensesController.index);
+expenseRouter.route('/create').post(expensesController.create)
+
 
 module.exports = expenseRouter;

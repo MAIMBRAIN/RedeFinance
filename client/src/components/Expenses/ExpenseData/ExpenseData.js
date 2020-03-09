@@ -7,13 +7,13 @@ const ExpenseData = (props) =>
 {
     return(
         <Grid container alignItems='center'>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
                 {props.name}            
             </Grid>
             <Grid item xs={3}>
                 {props.category}
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
                 {props.date}
             </Grid>
             <Grid item xs={1}>
@@ -21,7 +21,7 @@ const ExpenseData = (props) =>
             </Grid>
             <Grid item xs={1}>
                 <IconButton>
-                    <DeleteIcon fontSize='small'/>
+                    <DeleteIcon fontSize='small' onClick={props.removeExpense}/>
                 </IconButton>
             </Grid>
         </Grid>
