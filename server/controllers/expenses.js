@@ -1,4 +1,6 @@
 const Expense = require('../models/expense.js');
+const mongoose = require('mongoose');
+const mongodb = require('mongodb')
 
 module.exports = {
     // create new expense
@@ -27,44 +29,28 @@ module.exports = {
         })
     },
 
-    // show variable-rate expenses
-    variable: async (req, res) => {
-        try {
-            const expense = Expense.find({
-                type: "variable-rate"
-            });
-            res.json(expense);
-        } catch (err) {
-            alert(err);
-        }
-    },
-
-    // show flat-rate expenses
-    flat: async (req, res) => {
-        try {
-            const expense = Expense.find({
-                type: "flat-rate"
-            });
-            res.json(expense);
-        } catch (err) {
-            alert(err);
-        }
-    },
-
     // delete an expense
     destroy: async (req, res) => {
-        try {
-            const expense = await Expense.findByIdAndRemove(req.params.id);
-            res.json({
-                success: true,
-                message: "Expense deleted",
-                expense
-            });
-        } catch (err) {
-            res.json({
-                success: false,
-                code: err.code
-            });
-        }
+        Expense.deleteOne({_id: req.params.id}, (err, expense) => {
+            if (err) {
+                res.send(err)
+            }
+            res.json(expense)
+            console.log(req.params.id)
+        })
+        
+        // try {
+        //     const expense = await Expense.findByIdAndRemove(id);
+        //     res.json({
+        //         success: true,
+        //         message: "Expense deleted",
+        //         expense
+        //     });
+        // } catch (err) {
+        //     res.json({
+        //         success: false,
+        //         code: err.code
+        //     });
+        // }
     }
 };

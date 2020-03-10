@@ -14,8 +14,9 @@ export default {
     },
 
     // Delete the selected expense
-    // deleteExpense: function()
-    // {
-    //     return axios.delete('/api/expense/expenses/:id')
-    // }
+    deleteExpense: function(id)
+    {
+        console.log('ID in utils: ' + id)
+        return axios.delete(`/api/expense/delete/${id}`, id )
+    }
 };

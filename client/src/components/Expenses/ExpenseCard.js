@@ -32,13 +32,19 @@ const ExpenseCard = (props) =>
         .catch(err => console.log('Error: ', err))
     }
 
-    // // Remove current expense
-    // const removeExpense = () =>
-    // {
-    //     API.deleteExpense()
-    //     .then(res => console.log('Expense Deleted', res))
-    //     .catch(err => console.log('Error: ', err))
-    // }
+    // Remove current expense
+    const removeExpense = (id) =>
+    {
+        API.deleteExpense(id)
+        .then(res => console.log('Expense Deleted', res))
+        .catch(err => console.log('Error: ', err))
+        console.log(id)
+        try {
+            showExpenses();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     // Total of expenses
 
@@ -81,17 +87,18 @@ const ExpenseCard = (props) =>
                                 <ExpenseHeader />
                                 {expenses.filter(rate => rate.type === 'Variable-Rate').map(expense => (
                                     <ExpenseData
-                                        key={expense.name}
+                                        key={expense._id}
                                         name={expense.name}
                                         category={expense.category}
                                         date={new Date(expense.date).toDateString()}
                                         cost={expense.cost}
-                                        // onClick={removeExpense}
+                                        removeExpense={() => removeExpense(expense._id)}
                                     />
                                 ))}
                             </CardContent>
                         </Card>
                     </Grid>
+                    <br></br>
                     <Grid item xs={12}>
                         <Card className='flatRate'>
                             <Typography variant={'h6'} align={'left'}>
@@ -108,7 +115,7 @@ const ExpenseCard = (props) =>
                                         category={expense.category}
                                         date={new Date(expense.date).toDateString()}
                                         cost={expense.cost}
-                                        // onClick={removeExpense}
+                                        removeExpense={() => removeExpense(expense._id)}
                                     />
                                 ))}
                             </CardContent>
