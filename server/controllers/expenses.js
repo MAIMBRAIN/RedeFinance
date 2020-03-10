@@ -38,19 +38,5 @@ module.exports = {
             res.json(expense)
             console.log(req.params.id)
         })
-        
-        // try {
-        //     const expense = await Expense.findByIdAndRemove(id);
-        //     res.json({
-        //         success: true,
-        //         message: "Expense deleted",
-        //         expense
-        //     });
-        // } catch (err) {
-        //     res.json({
-        //         success: false,
-        //         code: err.code
-        //     });
-        // }
     }
 };

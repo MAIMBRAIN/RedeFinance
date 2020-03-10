@@ -17,11 +17,13 @@ const ExpenseCard = (props) =>
     const [cost, setCost] = useState();
     const [expenses, setExpenses] = useState([]);
 
+    // When page loads show all expenses
     useEffect(() =>
     {
         showExpenses();
     }, [])
 
+    // Shows all expenses
     const showExpenses = () =>
     {
         API.getExpenses()
@@ -30,6 +32,9 @@ const ExpenseCard = (props) =>
             setExpenses(res.data);
         })
         .catch(err => console.log('Error: ', err))
+
+        flatRateTotal()
+        variableRateTotal()
     }
 
     // Remove current expense
@@ -47,6 +52,29 @@ const ExpenseCard = (props) =>
     }
 
     // Total of expenses
+
+    // Total of Flat Rate expenses
+    const flatRateTotal = () =>
+    {
+        let flatTotal = 0;
+        expenses.filter(rate => rate.type === 'Flat-Rate').forEach(expense => {
+            return (flatTotal = flatTotal + expense.cost)
+        });
+        
+        return flatTotal;
+    }
+
+    // Total of Variable Rate expenses
+    const variableRateTotal = () =>
+    {
+        let variableTotal = 0;
+        expenses.filter(rate => rate.type === 'Variable-Rate').forEach(expense => {
+            return (variableTotal = variableTotal + expense.cost)
+        });
+        
+        return variableTotal;
+    }
+
 
     // Handles expense submit
     const handleSubmit = e => 
@@ -74,7 +102,7 @@ const ExpenseCard = (props) =>
                         <Card className='variableRate'>
                             <Typography variant={'h6'} align={'left'}>
                                 <CardHeader
-                                    title={`Variable-Rate Expenses for ${props.month}: $${props.total}`}
+                                    title={`Variable-Rate Expenses for ${props.month}: $${variableRateTotal()}`}
                                     action=
                                     {
                                         <IconButton aria-label="settings">
@@ -85,16 +113,18 @@ const ExpenseCard = (props) =>
                             </Typography>
                             <CardContent>
                                 <ExpenseHeader />
-                                {expenses.filter(rate => rate.type === 'Variable-Rate').map(expense => (
-                                    <ExpenseData
-                                        key={expense._id}
-                                        name={expense.name}
-                                        category={expense.category}
-                                        date={new Date(expense.date).toDateString()}
-                                        cost={expense.cost}
-                                        removeExpense={() => removeExpense(expense._id)}
-                                    />
-                                ))}
+                                {expenses.filter(rate => rate.type === 'Variable-Rate').map(expense => 
+                                {
+                                    return (
+                                        <ExpenseData
+                                            key={expense._id}
+                                            name={expense.name}
+                                            category={expense.category}
+                                            date={new Date(expense.date).toDateString()}
+                                            cost={expense.cost}
+                                            removeExpense={() => removeExpense(expense._id)}
+                                        />
+                                )})}
                             </CardContent>
                         </Card>
                     </Grid>
@@ -103,7 +133,7 @@ const ExpenseCard = (props) =>
                         <Card className='flatRate'>
                             <Typography variant={'h6'} align={'left'}>
                                 <CardHeader
-                                    title={`Flat-Rate Expenses for ${props.month}: $${props.total}`}
+                                    title={`Flat-Rate Expenses for ${props.month}: $${flatRateTotal()}`}
                                 />
                             </Typography>
                             <CardContent>

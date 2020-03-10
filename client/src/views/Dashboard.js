@@ -1,7 +1,6 @@
 import React, {useState, setState} from 'react';
 import {Typography } from '@material-ui/core';
 import ExpenseCard from '../components/Expenses/ExpenseCard'
-import Subscriptions from '../subscriptions.json'
 
 const month = () =>
 {
@@ -9,24 +8,15 @@ const month = () =>
     return thisMonth;
 }
 
-const total = () =>
-{
-    let total = 0;
-    Subscriptions.forEach(item => {
-        return(total = total + item.cost)
-    });
-    return total;
-}
-
 const Dashboard = (props) => 
 {    
     return (
         <div>
             <Typography variant={'h3'}>
-                Welcome 'Name goes here', Your expenses for {month()} is ${total()}
+                Welcome 'Name goes here', Your expenses for {month()} is 
             </Typography>
 
-            <ExpenseCard month={month()} total={total()}/>
+            <ExpenseCard month={month()}/>
         </div>
     )
 };
