@@ -12,10 +12,6 @@ const Dashboard = (props) =>
 {    
     return (
         <div>
-            <Typography variant={'h3'}>
-                Welcome 'Name goes here', Your expenses for {month()} is 
-            </Typography>
-
             <ExpenseCard month={month()}/>
         </div>
     )

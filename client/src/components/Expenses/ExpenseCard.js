@@ -8,6 +8,7 @@ import API from '../../utils/expenses'
 
 const ExpenseCard = (props) =>
 {
+    const clear = '';
     const [showForm, setShowForm] = useState(false)
     const [type, setType] = useState();
     const [name, setName] = useState();
@@ -52,7 +53,10 @@ const ExpenseCard = (props) =>
     }
 
     // Total of expenses
-
+    const expensesTotal = () =>
+    {
+        return flatRateTotal() + variableRateTotal()
+    }
     // Total of Flat Rate expenses
     const flatRateTotal = () =>
     {
@@ -86,8 +90,14 @@ const ExpenseCard = (props) =>
         .then(res => console.log('Success', res))
         .catch(err => console.log('Error: ', err));
         try {
-            setShowForm(false);
             showExpenses();
+            setType(clear)
+            setName(clear)
+            setCategory(clear)
+            setDate(new Date())
+            setOccurance(clear)
+            setCost(clear)
+            setShowForm(false);
         } catch (error) {
             console.log(error)
         }
@@ -96,6 +106,9 @@ const ExpenseCard = (props) =>
 
     return(
         <Container>
+            <Typography variant={'h4'}>
+                Welcome 'Name goes here', Your expenses for {props.month} is ${expensesTotal()}
+            </Typography>
                 <Grid container spacing={1} wrap={'wrap'}>
                     <Grid item xs={9}>
                     <Grid item xs={12}>
