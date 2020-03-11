@@ -1,9 +1,14 @@
 .header {
-    background: #282c34;
+    background: #131313ea;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     padding: 1%;
+}
+
+.nav-title {
+    font-size: 36px;
+    color: #08bd53;
 }
 
 .nav-logo {
@@ -11,10 +16,6 @@
     height: 50px;
     width: 50px;
     padding: 10%;
-}
-
-.nav-logo:hover {
-
 }
 
 .nav-items {
@@ -25,7 +26,7 @@
 }
 
 .nav-link {
-    background-color: #09d3ac;
+    background-color: #08bd53;
     color: black;
     padding: 14px 25px;
     text-align: center;
@@ -33,6 +34,6 @@
 }
 
 .nav-link:hover {
-    background-color: #08bd9a;
+    background-color: #09d386;
 }
 
