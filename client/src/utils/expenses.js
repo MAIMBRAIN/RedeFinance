@@ -10,13 +10,13 @@ export default {
     // Gets all expenses
     getExpenses: function()
     {
-        return axios.get('/api/expense/expenses')
+        return axios.get('/api/expense/expenses');
     },
 
     // Delete the selected expense
     deleteExpense: function(id)
     {
         console.log('ID in utils: ' + id)
-        return axios.delete(`/api/expense/delete/${id}`, id )
+        return axios.delete(`/api/expense/delete/${id}`, id);
     }
 };

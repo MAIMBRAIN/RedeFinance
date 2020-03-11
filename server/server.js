@@ -5,6 +5,7 @@ const path = require('path'),
     bodyParser = require('body-parser'),
     userRouter = require('./routes/users.js');
     expenseRouter = require('./routes/expenses')
+    incomeRouter = require('./routes/incomes')
 
 // Use env port or default
 const port = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 // add a router
 app.use('/api/users', userRouter);
 app.use('/api/expense', expenseRouter)
+app.use('/api/income', incomeRouter)
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
