@@ -3,8 +3,6 @@
 # dependencies
 /node_modules
 /client/node_modules
-/server/node_modules
-/server/node_modules/.bin
 /.pnp
 .pnp.js
 
@@ -58,7 +56,3 @@ yarn-error.log*
 .idea/*
 
 server/config/
-server/node_modules/.bin/_mocha
-server/node_modules/.bin/concurrently
-server/node_modules/.bin/mocha
-server/node_modules/.bin/nodemon
