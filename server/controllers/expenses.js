@@ -1,6 +1,4 @@
 const Expense = require('../models/expense.js');
-const mongoose = require('mongoose');
-const mongodb = require('mongodb')
 
 module.exports = {
     // create new expense
@@ -26,17 +24,15 @@ module.exports = {
         {
             if(err){ res.send(err) }
             res.json(expense)
-        })
+        });
     },
 
     // delete an expense
     destroy: async (req, res) => {
-        Expense.deleteOne({_id: req.params.id}, (err, expense) => {
-            if (err) {
-                res.send(err)
-            }
+        Expense.deleteOne({_id: req.params.id}, (err, expense) => 
+        {
+            if (err) {res.send(err)}
             res.json(expense)
-            console.log(req.params.id)
-        })
+        });
     }
 };

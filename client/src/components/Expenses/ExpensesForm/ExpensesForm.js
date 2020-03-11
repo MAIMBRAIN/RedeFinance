@@ -22,7 +22,6 @@ const ExpensesForm = (props) =>
                             value={props.type ? props.type:""}
                             onChange={e => props.setType(e.target.value)}
                             margin='normal'
-                            
                             select
                         >
                             {types.map(rate => (

@@ -24,6 +24,36 @@ const ExpenseCard = (props) =>
         showExpenses();
     }, [])
 
+    // Creates new Expense
+    const handleExpenseSubmit = e => {
+        e.preventDefault();
+
+        const data = {
+            type: type,
+            name: name,
+            category: category,
+            date: date,
+            occurance: occurance,
+            cost: cost
+        };
+        API.createExpense(data)
+            .then(res => console.log('Success', res))
+            .catch(err => console.log('Error: ', err));
+        try {
+            showExpenses();
+            setType(clear)
+            setName(clear)
+            setCategory(clear)
+            setDate(new Date())
+            setOccurance(clear)
+            setCost(clear)
+            setShowForm(false);
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     // Shows all expenses
     const showExpenses = () =>
     {
@@ -90,30 +120,7 @@ const ExpenseCard = (props) =>
         return flatTotal;
     }
 
-    // Handles expense submit
-    const handleSubmit = e => 
-    {
-        e.preventDefault();
-
-        const data = {type: type, name: name, category: category, date: date, occurance: occurance, cost: cost};
-        API.createExpense(data)
-        .then(res => console.log('Success', res))
-        .catch(err => console.log('Error: ', err));
-        try {
-            showExpenses();
-            setType(clear)
-            setName(clear)
-            setCategory(clear)
-            setDate(new Date())
-            setOccurance(clear)
-            setCost(clear)
-            setShowForm(false);
-        } catch (error) {
-            console.log(error)
-        }
-        
-    }
-
+    // Render
     return(
         <Container>
             <br></br>
@@ -217,7 +224,7 @@ const ExpenseCard = (props) =>
                                     setDate={setDate}
                                     setOccurance={setOccurance}
                                     setCost={setCost} 
-                                    handleSubmit={handleSubmit}
+                                    handleSubmit={handleExpenseSubmit}
                                 />}
                         </Grid>
                 </Grid>
