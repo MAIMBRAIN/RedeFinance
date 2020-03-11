@@ -55,17 +55,18 @@ const ExpenseCard = (props) =>
     // Total of expenses
     const expensesTotal = () =>
     {
-        return flatRateTotal() + variableRateTotal()
+        return onceTotal() + flatRateTotal() + variableRateTotal()
     }
-    // Total of Flat Rate expenses
-    const flatRateTotal = () =>
+
+    // Total of One Time Expenses
+    const onceTotal = () =>
     {
-        let flatTotal = 0;
-        expenses.filter(rate => rate.type === 'Flat-Rate').forEach(expense => {
-            return (flatTotal = flatTotal + expense.cost)
+        let oneTotal = 0;
+        expenses.filter(rate => rate.type === 'One-Time').forEach(expense => {
+            return (oneTotal = oneTotal + expense.cost)
         });
         
-        return flatTotal;
+        return oneTotal;
     }
 
     // Total of Variable Rate expenses
@@ -78,7 +79,16 @@ const ExpenseCard = (props) =>
         
         return variableTotal;
     }
-
+    // Total of Flat Rate expenses
+    const flatRateTotal = () =>
+    {
+        let flatTotal = 0;
+        expenses.filter(rate => rate.type === 'Flat-Rate').forEach(expense => {
+            return (flatTotal = flatTotal + expense.cost)
+        });
+        
+        return flatTotal;
+    }
 
     // Handles expense submit
     const handleSubmit = e => 
@@ -109,19 +119,45 @@ const ExpenseCard = (props) =>
             <Typography variant={'h4'}>
                 Welcome 'Name goes here', Your expenses for {props.month} is ${expensesTotal()}
             </Typography>
+            <br></br>
                 <Grid container spacing={1} wrap={'wrap'}>
                     <Grid item xs={9}>
                     <Grid item xs={12}>
-                        <Card className='variableRate'>
+                        <Card className='oneTime'>
                             <Typography variant={'h6'} align={'left'}>
                                 <CardHeader
-                                    title={`Variable-Rate Expenses for ${props.month}: $${variableRateTotal()}`}
+                                    title={`One-Time Expenses for ${props.month}: $${onceTotal()}`}
                                     action=
                                     {
                                         <IconButton aria-label="settings">
                                             <AddBoxIcon onClick={() => setShowForm(!showForm)}/>
                                         </IconButton>
                                     }
+                                />
+                            </Typography>
+                            <CardContent>
+                                <ExpenseHeader />
+                                {expenses.filter(rate => rate.type === 'One-Time').map(expense => 
+                                {
+                                    return (
+                                        <ExpenseData
+                                            key={expense._id}
+                                            name={expense.name}
+                                            category={expense.category}
+                                            date={new Date(expense.date).toDateString()}
+                                            cost={expense.cost}
+                                            removeExpense={() => removeExpense(expense._id)}
+                                        />
+                                )})}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <br></br>
+                    <Grid item xs={12}>
+                        <Card className='variableRate'>
+                            <Typography variant={'h6'} align={'left'}>
+                                <CardHeader
+                                    title={`Variable-Rate Expenses for ${props.month}: $${variableRateTotal()}`}
                                 />
                             </Typography>
                             <CardContent>
