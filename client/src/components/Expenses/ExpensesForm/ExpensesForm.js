@@ -81,7 +81,7 @@ const ExpensesForm = (props) =>
                             value={props.cost ? props.cost:""}
                             onChange={e => props.setCost(e.target.value)}
                             margin='normal'
-                            inputProps={{startAdornment: <InputAdornment position='start'>$</InputAdornment>}}
+                            InputProps={{startAdornment: <InputAdornment position='start'>$</InputAdornment>}}
                         >
                         </TextField>
                         <Button variant='contained' color='primary' type='submit' onClick={props.handleSubmit}>Add Expense</Button>

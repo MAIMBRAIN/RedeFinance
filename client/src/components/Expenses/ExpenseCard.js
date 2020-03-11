@@ -116,8 +116,9 @@ const ExpenseCard = (props) =>
 
     return(
         <Container>
+            <br></br>
             <Typography variant={'h4'}>
-                Welcome 'Name goes here', Your expenses for {props.month} is ${expensesTotal()}
+                Your expenses for {props.month} is ${expensesTotal()}
             </Typography>
             <br></br>
                 <Grid container spacing={1} wrap={'wrap'}>
