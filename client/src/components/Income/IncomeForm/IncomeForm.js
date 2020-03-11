@@ -19,7 +19,6 @@ const IncomeForm = (props) =>
                             value={props.reason ? props.reason:""}
                             onChange={e => props.setReason(e.target.value)}
                             margin='normal'
-                            select
                         >
                         </TextField>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -33,7 +32,7 @@ const IncomeForm = (props) =>
                         <TextField
                             id='amount'
                             label='Amount of Income'
-                            value={props.cost ? props.cost:""}
+                            value={props.amount ? props.amount:""}
                             onChange={e => props.setAmount(e.target.value)}
                             margin='normal'
                             InputProps={{startAdornment: <InputAdornment position='start'>$</InputAdornment>}}

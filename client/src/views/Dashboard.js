@@ -1,6 +1,7 @@
 import React, {useState, setState} from 'react';
-import {Typography } from '@material-ui/core';
 import ExpenseCard from '../components/Expenses/ExpenseCard'
+import IncomeCard from '../components/Income/IncomeCard';
+import { Grid } from '@material-ui/core';
 
 const month = () =>
 {
@@ -12,7 +13,12 @@ const Dashboard = (props) =>
 {    
     return (
         <div>
-            <ExpenseCard month={month()}/>
+            <Grid container wrap={'wrap'}>
+                <Grid item xs={12}>
+                    <IncomeCard month={month()}/>
+                    <ExpenseCard month={month()}/>
+                </Grid>
+            </Grid>
         </div>
     )
 };

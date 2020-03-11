@@ -64,6 +64,7 @@ const ExpenseCard = (props) =>
         })
         .catch(err => console.log('Error: ', err))
 
+        onceTotal()
         flatRateTotal()
         variableRateTotal()
     }
