@@ -50,7 +50,7 @@ const IncomeCard = (props) =>
             setAmount(clear);
             setShowForm(false);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
@@ -63,7 +63,7 @@ const IncomeCard = (props) =>
                 console.log('Success', res);
                 setIncomes(res.data);
             })
-        .catch(err => console.log('Error: ', err))
+        .catch(err => console.log('Error: ', err));
 
         incomesTotal();
     };
@@ -71,7 +71,14 @@ const IncomeCard = (props) =>
     // Delete Income
     const removeIncome = (id) =>
     {
-
+        IncomeAPI.deleteIncome(id)
+        .then(res => console.log('Income Deleted', res))
+        .catch(err => console.log('Error: ', err));
+        try {
+            showIncome();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return(
