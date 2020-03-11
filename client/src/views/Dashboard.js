@@ -1,18 +1,9 @@
-import React, {useState, setState} from 'react';
-import {Typography } from '@material-ui/core';
-import ExpenseCard from '../components/Expenses/ExpenseCard'
+import React from 'react'
 
-const month = () =>
-{
-    let thisMonth = new Date().toLocaleDateString('default', {month: 'long'})
-    return thisMonth;
-}
-
-const Dashboard = (props) => 
-{    
+const Dashboard = (props) => {
     return (
         <div>
-            <ExpenseCard month={month()}/>
+            <h1>Welcome to your dashboard!</h1>
         </div>
     )
 };
