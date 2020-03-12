@@ -63,7 +63,7 @@ const SignUp = (props) => {
                         required
                         fullWidth
                         id="name"
-                        label="name"
+                        label="Name"
                         autoFocus
                         value={fields.name}
                     />
