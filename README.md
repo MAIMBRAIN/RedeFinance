@@ -1,28 +1,9 @@
-## Available Scripts
+RedeFinance
 
-Please note that any time the server is run in these scripts `nodemon` is used in place of `node` for easier development. If you are interested in how this works follow the nodemon In the project directory, you can run:
+This application was created to help keep track of expenses and give the amount you are able to spend. This was also a personal project that helped me achieve a greater understanding in the MERN stack. The technologies used to create this application include MongoDB, Express.js, React, Node.js, Yarn, and Material-UI.
 
-### `yarn workspace server dev`
+This Application takes the user's income and different rates of expenses then returns the difference of available income to spend.
 
-Runs both the client app and the server app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view the client in the browser.
+Future versions this application will include the use of npm package plotly.js to display charts based on categorial spending. This application will also eventually return the user's projected expenses for the upcoming months based off of past spending averages.
 
-### `yarn workspace client start`
-
-Runs just the client app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view the client in the browser.
-
-
-### `yarn workspace server start`
-
-Runs just the server in development mode.<br>
-
-
-### `yarn workspace server build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-If deploying to heroku this does not need to be run since it is handled by the heroku-postbuild script<br>
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+My intention with this application is to recreate it in different frameworks including Angular and Vue to expand my knowledge with those frontend frameworks. I also intend to use this application to learn how to use Redux with React.
